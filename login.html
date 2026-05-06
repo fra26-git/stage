@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Login</title>
+
+<style>
+body {
+    font-family: Arial;
+    background: #0b6c92;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+.form-box {
+    background: rgba(204, 21, 21, 0.705);
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    width: 300px;
+}
+input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+}
+button {
+    width: 100%;
+    padding: 10px;
+    background: #2c3e50;
+    color:  orangered; 
+    border: none;
+}
+a {
+    text-decoration: none;
+}
+</style>
+
+</head>
+<body>
+   
+<div class="form-box">
+    <h2>Login</h2>
+
+    <form action="login.php" method="POST">
+        <label>Username:</label>
+        <input type="text" name="username" placeholder="Enter Username" required>
+        <label>Password:</label>
+        <input type="password" name="password" placeholder="Enter Password" required>
+        <button type="submit">Login</button>
+    </form>
+
+    <p>Don't have an account?  <a href="signup.html">Sign up</a></p>
+</div>
+
+</body>
+</html>
