@@ -72,7 +72,7 @@ body {
 
 .alert {
     color: rgb(90, 24, 212);
-    padding: 12px;
+    padding: 8px;
     margin: 20px;
     border-radius: 5px;
 }
