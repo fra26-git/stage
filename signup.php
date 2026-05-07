@@ -8,7 +8,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $lastname = $_POST['lastname'];
     $email = $_POST['email'];
     $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
-$check = "SELECT * FROM users WHERE =firstname'$firstname'";
+$check = "SELECT * FROM users WHERE firstname='$firstname'";
 $result = $conn->query($check);
 
 if ($result->num_rows > 0) {
