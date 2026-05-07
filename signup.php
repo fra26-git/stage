@@ -1,11 +1,9 @@
   <?php
 include "db.php";
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-
-    $firstname = $_POST['firstname'];
-    
-    $lastname = $_POST['lastname'];
+if ($_SERVER["REQUEST_METHOD"] == "POST") { 
+ $firstname = $_POST['firstname'];
+ $lastname = $_POST['lastname'];
     $email = $_POST['email'];
     $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
 $check = "SELECT * FROM users WHERE firstname='$firstname'";
@@ -24,6 +22,7 @@ if ($result->num_rows > 0) {
     } else {
         echo "Error: " . $conn->error;
     }
+
 }
 
 $conn->close();
