@@ -15,7 +15,7 @@ if (!isset($_SESSION['username'])) {
 <style>
 body{
     font-family: Arial;
-    background:#f4f6f9;
+    background: #467864;;
     padding:40px;
 }
 
@@ -38,6 +38,7 @@ body{
 
 <p><b>Username:</b>
 <?php echo $_SESSION['username']; ?>
+
 </p>
 
 </div>

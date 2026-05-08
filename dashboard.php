@@ -13,128 +13,110 @@ if (!isset($_SESSION['username'])) {
 <head>
 <meta charset="UTF-8">
 <title>Dashboard</title>
-
 <style>
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+    body{
+        background: #1ca5b8;
+     }
+.topbar{
+    background: #768;;
+    padding:15px 20px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    box-shadow:0 2px 5px rgba(0,0,0,0.1);
 }
 
-body {
-    font-family: Arial, sans-serif;
-    display: flex;
-    background: white;
+.user-menu{
+    position:relative;
+    display:flex;
+    align-items:center;
+    cursor:pointer;
 }
 
-
-.sidebar {
-    width: 230px;
-    height: 100vh;
-    background: #2c3e50;
-    color: white;
-    position: fixed;
+.top-img{
+    width:40px;
+    height:40px;
+    border-radius:50%;
+    margin-right:10px;
+    object-fit:cover;
 }
 
-.sidebar h2 {
-    text-align: center;
-    padding: 20px;
-    border-bottom: 1px solid #444;
+.dropdown{
+    display:none;
+    position:absolute;
+    top:50px;
+    right:0;
+    background:white;
+    width:150px;
+    box-shadow:0 2px 10px rgba(0,0,0,0.2);
+    border-radius:5px;
 }
 
-.sidebar a {
-    display: block;
-    padding: 12px 20px;
-    color: white;
-    text-decoration: none;
+.dropdown a{
+    display:block;
+    padding:12px;
+    text-decoration:none;
+    color:black;
 }
 
-.sidebar a:hover {
-    background: #34495e;
-}
-
-
-.main {
-    margin-left: 230px;
-    width: 100%;
-    
-    color: #34495e;
-}
-
-.topbar {
-    background: lightblue;
-    color: #34495e; 
-    padding: 15px 20px;
-    display: flex;
-    justify-content: space-between;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-}
-
-.alert {
-    color: rgb(90, 24, 212);
-    padding: 8px;
-    margin: 20px;
-    border-radius: 5px;
-}
-
-
-.content {
-    padding: 20px;
-    background:  #4756;
-}
-
-
-.cards {
-    display: flex;
-    gap: 20px;
-    flex-wrap: wrap;
- 
-
-      
-}
-
-.card {
-    background: #666;
-    padding: 20px;
-    flex: 1;
-    min-width: 250px;
-    border-radius: 10px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-}
-@media (max-width: 768px) {
-    .sidebar {
-        position: relative;
-        width: 100%;
-        height: auto;
-    }
-
-    .main {
-        margin-left: 0;
-    }
-
-    .cards {
-        flex-direction: column;
-        background:;
-    }
+.dropdown a:hover{
+    background:#f4f6f9;
 }
 </style>
 </head>
 
 <body>
+    <script>
+
+function toggleMenu() {
+
+    let menu = document.getElementById("dropdown");
+
+    if (menu.style.display === "block") {
+
+        menu.style.display = "none";
+
+    } else {
+
+        menu.style.display = "block";
+    }
+}
+
+</script>
 <div class="sidebar">
     <h2>MyApp</h2>
-    <a href="#">Dashboard</a>
-    <a href="profile.php">Profile</a>
-    <a href="#">Messages</a>
-    <a href="settings.php">Settings</a>
-    <a href="logout.php">Logout</a>
+    
+  
 </div>
 
 <div class="main">
 
-    <div class="topbar">
-        <h3>Dashboard</h3>
-        <span>Welcome, <?php echo $_SESSION['username']; ?></span>
+    
+     <div class="topbar">
+
+    <h3>Dashboard</h3>
+
+    <div class="user-menu">
+
+        <img src="images/user.png" class="top-img">
+
+        <span onclick="toggleMenu()">
+            <?php echo $_SESSION['username']; ?>
+        </span>
+
+        <div class="dropdown" id="dropdown">
+
+            <a href="profile.php">Profile</a>
+
+            <a href="settings.php">Settings</a>
+
+            <a href="logout.php">Logout</a>
+
+        </div>
+
+    </div>
+
+</div>  
     </div>
 
     <?php if (isset($_GET['success'])) { ?>

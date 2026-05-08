@@ -1,64 +1,89 @@
 <?php
-echo "PHP is working!";
-?>
-
-
-<?php
+session_start();
 include "db.php";
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+if (!isset($_SESSION['username'])) {
+    header("Location: login.html");
+    exit();
+}
 
-    $firstname = $_POST['firstname'];
-    $lastname = $_POST['lastname'];
-    $email = $_POST['email'];
-    $username = $_POST['username'];
+if (isset($_POST['change'])) {
 
-    $plain_password = $_POST['password'];
+    $newpassword = password_hash($_POST['password'], PASSWORD_DEFAULT);
 
-    
-    if (
-        strlen($plain_password) < 8 ||
-        !preg_match("/[A-Z]/", $plain_password) ||
-        !preg_match("/[a-z]/", $plain_password) ||
-        !preg_match("/[0-9]/", $plain_password)
-    ) {
+    $username = $_SESSION['username'];
 
-        die("Password must contain:
-        - At least 8 characters
-        - One uppercase letter
-        - One lowercase letter
-        - One number");
-    }
+    $sql = "UPDATE users 
+            SET password='$newpassword' 
+            WHERE username='$username'";
 
-    // Encrypt password
-    $password = password_hash($plain_password, PASSWORD_DEFAULT);
+    if ($conn->query($sql) === TRUE) {
 
-    // Check email
-    $check = "SELECT * FROM users WHERE email='$email'";
-    $result = $conn->query($check);
-
-    if ($result->num_rows > 0) {
-
-        echo "Email already taken!
-        <a href='signup.html'>Try another</a>";
+        echo "Password changed successfully!";
 
     } else {
 
-        $sql = "INSERT INTO users
-        (firstname, lastname, email, username, password)
-        VALUES
-        ('$firstname', '$lastname', '$email', '$username', '$password')";
-
-        if ($conn->query($sql) === TRUE) {
-
-            echo "Signup successful!";
-
-        } else {
-
-            echo "Error: " . $conn->error;
-        }
+        echo "Error: " . $conn->error;
     }
-
-    $conn->close();
 }
 ?>
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>Settings</title>
+
+<style>
+body{
+    font-family: Arial;
+    background: #467868;
+    padding:40px;
+}
+
+.box{
+    background: white;
+    padding:30px;
+    width:400px;
+    margin:auto;
+    border-radius:10px;
+}
+
+input{
+    width:100%;
+    padding:10px;
+    margin:10px 0;
+}
+
+button{
+    padding:10px;
+    width:100%;
+    background:#2c3e50;
+    color:white;
+    border:none;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="box">
+
+<h2>Change Password</h2>
+
+<form method="POST">
+
+<input type="password" 
+name="password" 
+placeholder="New Password" required>
+
+<button type="submit" name="change">
+Change Password
+</button>
+
+</form>
+
+</div>
+
+</body>
+</html>
