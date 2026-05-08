@@ -124,9 +124,9 @@ body {
 <div class="sidebar">
     <h2>MyApp</h2>
     <a href="#">Dashboard</a>
-    <a href="#">Profile</a>
+    <a href="profile.php">Profile</a>
     <a href="#">Messages</a>
-    <a href="#">Settings</a>
+    <a href="settings.php">Settings</a>
     <a href="logout.php">Logout</a>
 </div>
 
