@@ -61,8 +61,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         ('$firstname', '$lastname', '$email', '$username', '$password')";
 
         if ($conn->query($sql) === TRUE) {
-
-            echo "Signup successful!";
+       header("Location: login.html");
+exit();
+           
 
         } else {
 

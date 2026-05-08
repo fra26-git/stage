@@ -96,13 +96,18 @@ body {
 
         <form action="signup.php" method="POST">
           
-            <input type="text" name="firstname" placeholder="Firstname" required>
+            <input type="text" name="firstname" placeholder="Firstname" pattern="[A-Za-z]+"
+    title="Firstname must contain letters only" required>
 
-            <input type="text" name="lastname" placeholder="Lastname" required>
+        <p id="fnameError" style="color:red;"></p>
+            <input type="text" name="lastname" placeholder="Lastname" pattern="[A-Za-z]+"
+    title="Lastname must contain letters only"  required>
+    <p id="lastnameError" style="color:red;"></p>
            
             <input type="email" name="email" placeholder="Email" required>
             
-            <input type="text" name="username" placeholder="Username" required>
+            <input type="text" name="username" placeholder="Username" pattern="[A-Za-z]+"title="username must be text" required>
+           <p id="usenameError" style="color:red;"></p>
 
             <input type="password" name="password" placeholder="Password" required>
 
