@@ -1,24 +1,64 @@
 <?php
 echo "PHP is working!";
 ?>
-<signup class="html">
 
-<html>
-  <div  class="h2">
 
-  <h2>Signup</h2>
-   </div>
-<form action="signup.php" method="POST">
-    <label>Username:</label>
-  <input type="text" name="username" required><br></br>
-   
-   <label>Email:</label>
-<input type="Email" name="Email" required><br></br>
- <label>Password:</label>
-<input type="password" name="password" required><br></br>
-  <button type="submit">Sign Up</button>
-   <p style="text-align:center;">Already have an account <a href="login.html">Go  on login</a></p>
-   <style>
+<?php
+include "db.php";
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+    $firstname = $_POST['firstname'];
+    $lastname = $_POST['lastname'];
+    $email = $_POST['email'];
+    $username = $_POST['username'];
+
+    $plain_password = $_POST['password'];
+
     
-   </style>
-</html></signup>
+    if (
+        strlen($plain_password) < 8 ||
+        !preg_match("/[A-Z]/", $plain_password) ||
+        !preg_match("/[a-z]/", $plain_password) ||
+        !preg_match("/[0-9]/", $plain_password)
+    ) {
+
+        die("Password must contain:
+        - At least 8 characters
+        - One uppercase letter
+        - One lowercase letter
+        - One number");
+    }
+
+    // Encrypt password
+    $password = password_hash($plain_password, PASSWORD_DEFAULT);
+
+    // Check email
+    $check = "SELECT * FROM users WHERE email='$email'";
+    $result = $conn->query($check);
+
+    if ($result->num_rows > 0) {
+
+        echo "Email already taken!
+        <a href='signup.html'>Try another</a>";
+
+    } else {
+
+        $sql = "INSERT INTO users
+        (firstname, lastname, email, username, password)
+        VALUES
+        ('$firstname', '$lastname', '$email', '$username', '$password')";
+
+        if ($conn->query($sql) === TRUE) {
+
+            echo "Signup successful!";
+
+        } else {
+
+            echo "Error: " . $conn->error;
+        }
+    }
+
+    $conn->close();
+}
+?>
